@@ -20,7 +20,7 @@ class Client:
         self.evt_loop.add(e.Event('delete', collection, query, callback))
 
     def find(self, collection, query, callback):
-        self.evt_loop.add(e.Event('find_one', collection, query, callback))
+        self.evt_loop.add(e.Event('find', collection, query, callback))
 
     def find_one(self, collection, query, callback):
         self.evt_loop.add(e.Event('find_one', collection, query, callback))
