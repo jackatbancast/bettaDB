@@ -48,18 +48,18 @@ class DataStore:
         #TODO: implement better conversion
         return json.loads(code)
 
-    def insert(self, collection, document, callback=None):
+    def insert(self, collection, document, callback=None, *args, **kwargs):
         if collection and document:
             if collection in self.namespace.keys():
                 self.namespace[collection].append(document)
             else:
                 self.namespace[collection] = [document]
             if callback:
-                callback(None, document)
+                callback(None, document, *args, **kwargs)
         elif callback:
-            callback(True, None)
+            callback(True, None, *args, **kwargs)
         
-    def delete(self, collection, query, callback=None):
+    def delete(self, collection, query, callback=None, *args, **kwargs):
         if collection in self.namespace.keys():
             doccount = 0
             for doc in self.namespace[collection]:
@@ -74,13 +74,13 @@ class DataStore:
                     self.namespace[collection].pop(self.namespace[collection].index(doc))
                     doccount += 1
             if callback:
-                callback(None, doccount)#(err, doccount)
+                callback(None, doccount, *args, **kwargs)#(err, doccount)
             else:
                 pass
         elif callback:
-            callback(True, None)
+            callback(True, None, *args, **kwargs)
 
-    def find(self, collection, query, callback):
+    def find(self, collection, query, callback, *args, **kwargs):
         if collection in self.namespace.keys():
             retval = []
             for doc in self.namespace[collection]:
@@ -93,11 +93,11 @@ class DataStore:
                         break
                 if match:
                     retval.append(doc)
-            callback(None, retval)
+            callback(None, retval, *args, **kwargs)
         else:
-            callback(True, None)
+            callback(True, None, *args, **kwargs)
 
-    def find_one(self, collection, query, callback):
+    def find_one(self, collection, query, callback, *args, **kwargs):
         if collection in self.namespace.keys():
             d = None
             for doc in self.namespace[collection]:
@@ -111,6 +111,6 @@ class DataStore:
                 if match:
                     d = doc
                     break
-            callback(None, d)
+            callback(None, d, *args, **kwargs)
         else:
-            callback(True, None)
+            callback(True, None, *args, **kwargs)
