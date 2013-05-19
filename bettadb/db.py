@@ -15,12 +15,12 @@ class DataStore:
             self.import_file()
         
         if self.debug:
-            self.evt_loop.on('.+', lambda *args, **kwargs: print(args, kwargs))
-            self.evt_loop.on('log debug', lambda message: print(message))
-        self.evt_loop.on('insert\b', self.insert)
-        self.evt_loop.on('delete\b', self.delete)
-        self.evt_loop.on('find\b', self.find)
-        self.evt_loop.on('find\_one\b', self.find_one)
+            self.evt_loop.on('.+', lambda *args, **kwargs: print("Args: %s\nKwargs:%s" % (args, kwargs)))
+            self.evt_loop.on('log debug$', lambda message: print(message))
+        self.evt_loop.on('insert$', self.insert)
+        self.evt_loop.on('delete$', self.delete)
+        self.evt_loop.on('find$', self.find)
+        self.evt_loop.on('find\_one$', self.find_one)
 
     def commit(self, filename=None):
         out_filename = filename or self.filename

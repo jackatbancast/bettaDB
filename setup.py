@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='bettadb',
-    version='0.1.2',
+    version='0.1.3',
     description='Simple-to-use embedded database, modelled on MongoDB',
     author='Jack Stephenson <jackatbancast>',
     author_email='jack@bancast.net',
